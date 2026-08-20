@@ -1,0 +1,22 @@
+train_dataset:
+  # Base dataset setup: Defines the full image source
+  dataset:
+    name: image-folder
+    args:
+      # NOTE: This root_path is a placeholder. It will be overwritten by the
+      # command-line argument `--path` in train_full.py.
+      root_path: /mnt/pan/courses/csds451/gxk384/Manga109/Manga109_released_2023_12_07/images
+      cache: bin # Loads full images into RAM for fast cropping/sampling
+
+  # Wrapper setup: Defines the cropping, scaling, and augmentation logic
+  wrapper:
+    name: sr-implicit-downsampled
+    args:
+      inp_size: 256        # Target HR patch size (e.g., 256x256)
+      scale_min: 4.0       # Minimum scale factor for arbitrary SR training
+      scale_max: 4.0       # Maximum scale factor for arbitrary SR training
+      augment: True
+      # batch_per_gpu is dynamically set by the training script
+
+  # Batch size is defined here, but the script uses the CLI argument
+  batch_size: 4
